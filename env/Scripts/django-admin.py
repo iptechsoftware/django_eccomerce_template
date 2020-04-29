@@ -1,4 +1,4 @@
-#!D:\DjangoProjects\django_project_boilerplate\env\Scripts\python.exe
+#!D:\DjangoProjects\django_eccomerce_template\env\Scripts\python.exe
 from django.core import management
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=D:\DjangoProjects\django_project_boilerplate\env"
+set "VIRTUAL_ENV=D:\DjangoProjects\django_eccomerce_template\env"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

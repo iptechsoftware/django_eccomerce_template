@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"D:\DjangoProjects\django_project_boilerplate\env"
+$VIRTUAL_ENV = r"D:\DjangoProjects\django_eccomerce_template\env"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]

@@ -1,4 +1,8 @@
 {% load static %}
+
+{# for cart in navbar. if cart in another template put it in there #}
+{% load cart_template_tags %} }
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +10,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    {% block title %}<title>Some Title</title>{% endblock %}
+    <title>{% block title %}Some Title{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -77,22 +83,38 @@
                 <li class="nav-item">
                     <a class="nav-link waves-effect"
                        href="/products"
-                       >Products</a>
+                    >Products</a>
                 </li>
             </ul>
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect">
-                        <span class="badge red z-depth-1 mr-1"> 1 </span>
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-                    </a>
-                </li>
-
-            </ul>
-
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect">
+                            <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+                            <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+                            <span class="clearfix d-none d-sm-inline-block"> Login </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+                            <span class="clearfix d-none d-sm-inline-block"> Sign up </span>
+                        </a>
+                    </li>
+                    </ul>
+                {% endif %}
         </div>
 
     </div>
@@ -107,9 +129,11 @@
 {% endif %}
 </div>
 
-    {% block content  %}
-    {% endblock content %}
+{% block content %}
+{% endblock content %}
 
+{% block extra_body %}
+{% endblock %}
 
 <!--Footer-->
 <footer class="page-footer text-center font-small mt-4 wow fadeIn">
@@ -181,11 +205,11 @@
 <!-- JQuery -->
 <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 <!-- Bootstrap tooltips -->
-<script type="text/javascript" src="{% static 'js/popper.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
 <!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="{% static 'js/mdb.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
 <!-- Initializations -->
 <script type="text/javascript">
     // Animations initialization
