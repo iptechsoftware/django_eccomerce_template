@@ -1,8 +1,7 @@
-# django_project_boilerplate
+# django_ecommerce_template
 
-A boilerplate Django project for quickly getting started
+A Django e-commerce project for quickly getting started
 
-[![alt text](https://github.com/justdjango/django_project_boilerplate/blob/master/thumbnail.png "Logo")](https://www.youtube.com/watch?v=GEogao-tUec)
 
 Admin password: matt1234
 
