@@ -1,4 +1,6 @@
 import os
+
+import stripe
 from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(
@@ -81,3 +83,5 @@ LOGIN_REDIRECT_URL ="/"
 
 # Cripsy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+stripe.api_key = "sk_test_xyz"
