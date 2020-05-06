@@ -23,6 +23,16 @@ ADDRESS_CHOICES = (
 )
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
+    one_click_purchasing = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
@@ -80,7 +90,7 @@ class Order(models.Model):
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
     billing_address = models.ForeignKey(
-        'Address', related_name='billing_address',  on_delete=models.SET_NULL, blank=True, null=True)
+        'Address', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     payment = models.ForeignKey(
@@ -92,7 +102,6 @@ class Order(models.Model):
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.user.username
@@ -123,7 +132,6 @@ class Address(models.Model):
         verbose_name_plural = 'Addresses'
 
 
-
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -142,6 +150,7 @@ class Coupon(models.Model):
     def __str__(self):
         return self.code
 
+
 class Refund(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     reason = models.TextField()
@@ -150,3 +159,11 @@ class Refund(models.Model):
 
     def __str__(self):
         return f"{self.pk}"
+
+
+def userprofile_receiver(sender, instance, created, *args, **kwargs):
+    if created:
+        userprofile = UserProfile.objects.create(user=instance)
+
+
+post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)

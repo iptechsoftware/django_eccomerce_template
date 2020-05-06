@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Product Page{% endblock %}
+{% block title %}{{object.title}}{% endblock %}
 {% block content %}
 
     <!--Main layout-->
@@ -13,8 +13,8 @@
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
 
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg"
-                         class="img-fluid" alt="">
+                    <img src="{{item.image.url}}"
+                         class="img-fluid" alt="{{object.title}}">
 
                 </div>
                 <!--Grid column-->
